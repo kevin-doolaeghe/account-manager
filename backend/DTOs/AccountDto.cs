@@ -1,6 +1,6 @@
 ﻿using backend.Models;
 
-namespace Backend.DTOs {
+namespace backend.DTOs {
 
     public class AccountGetDto {
 

@@ -12,5 +12,9 @@ namespace backend.Services {
         public DbSet<User> Users { get; set; } = null!;
 
         public DbSet<Account> Accounts { get; set; } = null!;
+
+        public DbSet<Record> Records { get; set; } = null!;
+
+        public DbSet<RecordType> RecordTypes { get; set; } = null!;
     }
 }

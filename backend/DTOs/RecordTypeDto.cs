@@ -17,7 +17,7 @@ namespace backend.DTOs {
                 Id = item.Id,
                 Name = item.Name,
                 Icon = item.Icon,
-                Color = item.Color
+                Color = item.Color,
             };
         }
     }
@@ -34,7 +34,7 @@ namespace backend.DTOs {
             return new RecordType {
                 Name = dto.Name,
                 Icon = dto.Icon,
-                Color = dto.Color
+                Color = dto.Color,
             };
         }
     }

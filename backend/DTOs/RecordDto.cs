@@ -14,7 +14,9 @@ namespace backend.DTOs {
 
         public DateTime Date { get; set; }
 
-        public RecordType? Type { get; set; }
+        public int TypeId { get; set; }
+
+        public int AccountId { get; set; }
 
         public static RecordGetDto ToDto(Record item) {
             return new RecordGetDto {
@@ -23,7 +25,8 @@ namespace backend.DTOs {
                 Amount = item.Amount,
                 Status = item.Status,
                 Date = item.Date,
-                Type = item.Type
+                TypeId = item.TypeId,
+                AccountId = item.AccountId,
             };
         }
     }
@@ -38,7 +41,9 @@ namespace backend.DTOs {
 
         public DateTime Date { get; set; }
 
-        public RecordType? Type { get; set; }
+        public int TypeId { get; set; }
+
+        public int AccountId { get; set; }
 
         public static Record ToItem(RecordPostDto dto) {
             return new Record {
@@ -46,7 +51,8 @@ namespace backend.DTOs {
                 Amount = dto.Amount,
                 Status = dto.Status,
                 Date = dto.Date,
-                Type = dto.Type
+                TypeId = dto.TypeId,
+                AccountId = dto.AccountId,
             };
         }
     }

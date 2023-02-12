@@ -12,6 +12,8 @@
 
         public DateTime Date { get; set; }
 
-        public RecordType? Type { get; set; }
+        public int TypeId { get; set; }
+
+        public int AccountId { get; set; }
     }
 }

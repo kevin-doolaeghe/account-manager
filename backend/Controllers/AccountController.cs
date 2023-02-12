@@ -38,6 +38,7 @@ namespace backend.Controllers {
             if (item == null) return NotFound();
 
             item.Name = dto.Name;
+            item.UserId = dto.UserId;
 
             try {
                 await _context.SaveChangesAsync();

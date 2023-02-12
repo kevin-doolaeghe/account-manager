@@ -41,7 +41,8 @@ namespace backend.Controllers {
             item.Amount = dto.Amount;
             item.Status = dto.Status;
             item.Date = dto.Date;
-            item.Type = dto.Type;
+            item.TypeId = dto.TypeId;
+            item.AccountId = dto.AccountId;
 
             try {
                 await _context.SaveChangesAsync();

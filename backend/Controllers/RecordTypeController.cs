@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers {
 
-    [Route("api/record_type")]
+    [Route("api/record_types")]
     [ApiController]
     public class RecordTypeController : ControllerBase {
 
@@ -14,7 +14,7 @@ namespace backend.Controllers {
 
         public RecordTypeController(DatabaseContext context) { _context = context; }
 
-        // GET: api/record_type
+        // GET: api/record_types
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecordTypeGetDto>>> GetAll() {
             return await _context.RecordTypes
@@ -22,19 +22,19 @@ namespace backend.Controllers {
                 .ToListAsync();
         }
 
-        // GET: api/record_type/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<RecordTypeGetDto>> Get(long id) {
-            var item = await _context.RecordTypes.FindAsync(id);
+        // GET: api/record_types/5
+        [HttpGet("{recordTypeId}")]
+        public async Task<ActionResult<RecordTypeGetDto>> Get(long recordTypeId) {
+            var item = await _context.RecordTypes.FindAsync(recordTypeId);
             if (item == null) return NotFound();
 
             return RecordTypeGetDto.ToDto(item);
         }
 
-        // PUT: api/record_type/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, RecordTypePostDto dto) {
-            var item = await _context.RecordTypes.FindAsync(id);
+        // PUT: api/record_types/5
+        [HttpPut("{recordTypeId}")]
+        public async Task<IActionResult> Put(long recordTypeId, RecordTypePostDto dto) {
+            var item = await _context.RecordTypes.FindAsync(recordTypeId);
             if (item == null) return NotFound();
 
             item.Name = dto.Name;
@@ -43,14 +43,14 @@ namespace backend.Controllers {
 
             try {
                 await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException) when (!Exists(id)) {
+            } catch (DbUpdateConcurrencyException) when (!RecordTypeExists(recordTypeId)) {
                 return NotFound();
             }
 
             return NoContent();
         }
 
-        // POST: api/record_type
+        // POST: api/record_types
         [HttpPost]
         public async Task<ActionResult<RecordTypeGetDto>> Post(RecordTypePostDto dto) {
             var item = RecordTypePostDto.ToItem(dto);
@@ -60,15 +60,15 @@ namespace backend.Controllers {
 
             return CreatedAtAction(
                 nameof(Get),
-                new { id = item.RecordTypeId },
+                new { recordTypeId = item.RecordTypeId },
                 RecordTypeGetDto.ToDto(item)
             );
         }
 
-        // DELETE: api/record_type/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id) {
-            var item = await _context.RecordTypes.FindAsync(id);
+        // DELETE: api/record_types/5
+        [HttpDelete("{recordTypeId}")]
+        public async Task<IActionResult> Delete(long recordTypeId) {
+            var item = await _context.RecordTypes.FindAsync(recordTypeId);
             if (item == null) return NotFound();
 
             _context.RecordTypes.Remove(item);
@@ -77,8 +77,8 @@ namespace backend.Controllers {
             return NoContent();
         }
 
-        private bool Exists(long id) {
-            return _context.RecordTypes.Any(e => e.RecordTypeId == id);
+        private bool RecordTypeExists(long recordTypeId) {
+            return _context.RecordTypes.Any(e => e.RecordTypeId == recordTypeId);
         }
     }
 }

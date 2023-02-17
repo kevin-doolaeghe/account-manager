@@ -23,20 +23,20 @@ namespace backend.Controllers {
         }
 
         // GET: api/accounts/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AccountGetDto>> Get(long id) {
-            var item = await _context.Accounts.FindAsync(id);
+        [HttpGet("{accountId}")]
+        public async Task<ActionResult<AccountGetDto>> Get(long accountId) {
+            var item = await _context.Accounts.FindAsync(accountId);
             if (item == null) return NotFound();
 
             return AccountGetDto.ToDto(item);
         }
 
         // PUT: api/accounts/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, AccountPostDto dto) {
+        [HttpPut("{accountId}")]
+        public async Task<IActionResult> Put(long accountId, AccountPostDto dto) {
             if (!UserExists(dto.UserId)) return NotFound();
 
-            var item = await _context.Accounts.FindAsync(id);
+            var item = await _context.Accounts.FindAsync(accountId);
             if (item == null) return NotFound();
 
             item.Name = dto.Name;
@@ -44,7 +44,7 @@ namespace backend.Controllers {
 
             try {
                 await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException) when (!AccountExists(id)) {
+            } catch (DbUpdateConcurrencyException) when (!AccountExists(accountId)) {
                 return NotFound();
             }
 
@@ -63,15 +63,15 @@ namespace backend.Controllers {
 
             return CreatedAtAction(
                 nameof(Get),
-                new { id = item.AccountId },
+                new { accountId = item.AccountId },
                 AccountGetDto.ToDto(item)
             );
         }
 
         // DELETE: api/accounts/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id) {
-            var item = await _context.Accounts.FindAsync(id);
+        [HttpDelete("{accountId}")]
+        public async Task<IActionResult> Delete(long accountId) {
+            var item = await _context.Accounts.FindAsync(accountId);
             if (item == null) return NotFound();
 
             _context.Accounts.Remove(item);
@@ -80,12 +80,12 @@ namespace backend.Controllers {
             return NoContent();
         }
 
-        private bool AccountExists(long id) {
-            return _context.Accounts.Any(e => e.AccountId == id);
+        private bool AccountExists(long accountId) {
+            return _context.Accounts.Any(e => e.AccountId == accountId);
         }
 
-        private bool UserExists(long id) {
-            return _context.Users.Any(e => e.UserId == id);
+        private bool UserExists(long userId) {
+            return _context.Users.Any(e => e.UserId == userId);
         }
     }
 }

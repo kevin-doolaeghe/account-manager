@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers {
 
-    [Route("api/record")]
+    [Route("api/records")]
     [ApiController]
     public class RecordController : ControllerBase {
 
@@ -14,7 +14,7 @@ namespace backend.Controllers {
 
         public RecordController(DatabaseContext context) { _context = context; }
 
-        // GET: api/record
+        // GET: api/records
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecordGetDto>>> GetAll() {
             return await _context.Records
@@ -22,21 +22,21 @@ namespace backend.Controllers {
                 .ToListAsync();
         }
 
-        // GET: api/record/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<RecordGetDto>> Get(long id) {
-            var item = await _context.Records.FindAsync(id);
+        // GET: api/records/5
+        [HttpGet("{recordId}")]
+        public async Task<ActionResult<RecordGetDto>> Get(long recordId) {
+            var item = await _context.Records.FindAsync(recordId);
             if (item == null) return NotFound();
 
             return RecordGetDto.ToDto(item);
         }
 
-        // PUT: api/record/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, RecordPostDto dto) {
+        // PUT: api/records/5
+        [HttpPut("{recordId}")]
+        public async Task<IActionResult> Put(long recordId, RecordPostDto dto) {
             if (!RecordTypeExists(dto.RecordTypeId) || !AccountExists(dto.AccountId)) return NotFound();
 
-            var item = await _context.Records.FindAsync(id);
+            var item = await _context.Records.FindAsync(recordId);
             if (item == null) return NotFound();
 
             item.Description = dto.Description;
@@ -48,14 +48,14 @@ namespace backend.Controllers {
 
             try {
                 await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException) when (!RecordExists(id)) {
+            } catch (DbUpdateConcurrencyException) when (!RecordExists(recordId)) {
                 return NotFound();
             }
 
             return NoContent();
         }
 
-        // POST: api/record
+        // POST: api/records
         [HttpPost]
         public async Task<ActionResult<RecordGetDto>> Post(RecordPostDto dto) {
             if (!RecordTypeExists(dto.RecordTypeId) || !AccountExists(dto.AccountId)) return NotFound();
@@ -67,15 +67,15 @@ namespace backend.Controllers {
 
             return CreatedAtAction(
                 nameof(Get),
-                new { id = item.RecordId },
+                new { recordId = item.RecordId },
                 RecordGetDto.ToDto(item)
             );
         }
 
-        // DELETE: api/record/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id) {
-            var item = await _context.Records.FindAsync(id);
+        // DELETE: api/records/5
+        [HttpDelete("{recordId}")]
+        public async Task<IActionResult> Delete(long recordId) {
+            var item = await _context.Records.FindAsync(recordId);
             if (item == null) return NotFound();
 
             _context.Records.Remove(item);
@@ -84,16 +84,16 @@ namespace backend.Controllers {
             return NoContent();
         }
 
-        private bool RecordExists(long id) {
-            return _context.Records.Any(e => e.RecordId == id);
+        private bool RecordExists(long recordId) {
+            return _context.Records.Any(e => e.RecordId == recordId);
         }
 
-        private bool RecordTypeExists(long id) {
-            return _context.RecordTypes.Any(e => e.RecordTypeId == id);
+        private bool RecordTypeExists(long recordTypeId) {
+            return _context.RecordTypes.Any(e => e.RecordTypeId == recordTypeId);
         }
 
-        private bool AccountExists(long id) {
-            return _context.Accounts.Any(e => e.AccountId == id);
+        private bool AccountExists(long accountId) {
+            return _context.Accounts.Any(e => e.AccountId == accountId);
         }
     }
 }

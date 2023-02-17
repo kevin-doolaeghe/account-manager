@@ -3,6 +3,7 @@ using backend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace backend.Controllers {
 
@@ -15,19 +16,19 @@ namespace backend.Controllers {
         public BalanceController(DatabaseContext context) { _context = context; }
 
         // GET: api/balance/5
-        [HttpGet]
-        public async Task<ActionResult<double>> GetBalance(long accoundId) {
+        [HttpGet("{accountId}")]
+        public async Task<ActionResult<double>> GetBalance(long accountId) {
             return await _context.Records
-                .Where(x => x.AccountId == accoundId)
+                .Where(x => x.AccountId == accountId)
                 .SumAsync(x => x.Amount);
         }
 
         // GET: api/balance/5/2
-        [HttpGet]
-        public async Task<ActionResult<double>> GetBalance(long accoundId, long recordId) {
+        [HttpGet("{accountId}/{recordTypeId}")]
+        public async Task<ActionResult<double>> GetBalance(long accountId, long recordTypeId) {
             return await _context.Records
-                .Where(x => x.AccountId == accoundId)
-                .Where(x => x.RecordId == recordId)
+                .Where(x => x.AccountId == accountId)
+                .Where(x => x.RecordTypeId == recordTypeId)
                 .SumAsync(x => x.Amount);
         }
     }

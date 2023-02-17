@@ -23,18 +23,18 @@ namespace backend.Controllers {
         }
 
         // GET: api/users/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserGetDto>> Get(long id) {
-            var item = await _context.Users.FindAsync(id);
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<UserGetDto>> Get(long userId) {
+            var item = await _context.Users.FindAsync(userId);
             if (item == null) return NotFound();
 
             return UserGetDto.ToDto(item);
         }
 
         // PUT: api/users/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, UserPostDto dto) {
-            var item = await _context.Users.FindAsync(id);
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> Put(long userId, UserPostDto dto) {
+            var item = await _context.Users.FindAsync(userId);
             if (item == null) return NotFound();
 
             item.Name = dto.Name;
@@ -43,7 +43,7 @@ namespace backend.Controllers {
 
             try {
                 await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException) when (!Exists(id)) {
+            } catch (DbUpdateConcurrencyException) when (!UserExists(userId)) {
                 return NotFound();
             }
 
@@ -60,15 +60,15 @@ namespace backend.Controllers {
 
             return CreatedAtAction(
                 nameof(Get),
-                new { id = item.UserId },
+                new { userId = item.UserId },
                 UserGetDto.ToDto(item)
             );
         }
 
         // DELETE: api/users/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id) {
-            var item = await _context.Users.FindAsync(id);
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> Delete(long userId) {
+            var item = await _context.Users.FindAsync(userId);
             if (item == null) return NotFound();
 
             _context.Users.Remove(item);
@@ -77,8 +77,8 @@ namespace backend.Controllers {
             return NoContent();
         }
 
-        private bool Exists(long id) {
-            return _context.Users.Any(e => e.UserId == id);
+        private bool UserExists(long userId) {
+            return _context.Users.Any(e => e.UserId == userId);
         }
     }
 }

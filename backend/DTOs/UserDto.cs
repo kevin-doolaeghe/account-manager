@@ -4,7 +4,7 @@ namespace backend.DTOs {
 
     public class UserGetDto {
 
-        public int Id { get; set; }
+        public long UserId { get; set; }
 
         public string? Name { get; set; }
 
@@ -12,7 +12,7 @@ namespace backend.DTOs {
 
         public static UserGetDto ToDto(User item) {
             return new UserGetDto {
-                Id = item.Id,
+                UserId = item.UserId,
                 Name = item.Name,
                 Email = item.Email,
             };

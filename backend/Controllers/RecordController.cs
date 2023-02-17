@@ -34,6 +34,8 @@ namespace backend.Controllers {
         // PUT: api/record/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, RecordPostDto dto) {
+            if (!RecordTypeExists(dto.RecordTypeId) || !AccountExists(dto.AccountId)) return NotFound();
+
             var item = await _context.Records.FindAsync(id);
             if (item == null) return NotFound();
 
@@ -41,12 +43,12 @@ namespace backend.Controllers {
             item.Amount = dto.Amount;
             item.Status = dto.Status;
             item.Date = dto.Date;
-            item.TypeId = dto.TypeId;
+            item.RecordTypeId = dto.RecordTypeId;
             item.AccountId = dto.AccountId;
 
             try {
                 await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException) when (!Exists(id)) {
+            } catch (DbUpdateConcurrencyException) when (!RecordExists(id)) {
                 return NotFound();
             }
 
@@ -56,6 +58,8 @@ namespace backend.Controllers {
         // POST: api/record
         [HttpPost]
         public async Task<ActionResult<RecordGetDto>> Post(RecordPostDto dto) {
+            if (!RecordTypeExists(dto.RecordTypeId) || !AccountExists(dto.AccountId)) return NotFound();
+
             var item = RecordPostDto.ToItem(dto);
 
             _context.Records.Add(item);
@@ -63,7 +67,7 @@ namespace backend.Controllers {
 
             return CreatedAtAction(
                 nameof(Get),
-                new { id = item.Id },
+                new { id = item.RecordId },
                 RecordGetDto.ToDto(item)
             );
         }
@@ -80,8 +84,16 @@ namespace backend.Controllers {
             return NoContent();
         }
 
-        private bool Exists(long id) {
-            return _context.Records.Any(e => e.Id == id);
+        private bool RecordExists(long id) {
+            return _context.Records.Any(e => e.RecordId == id);
+        }
+
+        private bool RecordTypeExists(long id) {
+            return _context.RecordTypes.Any(e => e.RecordTypeId == id);
+        }
+
+        private bool AccountExists(long id) {
+            return _context.Accounts.Any(e => e.AccountId == id);
         }
     }
 }

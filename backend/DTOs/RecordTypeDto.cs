@@ -4,7 +4,7 @@ namespace backend.DTOs {
 
     public class RecordTypeGetDto {
 
-        public int Id { get; set; }
+        public long RecordTypeId { get; set; }
 
         public string? Name { get; set; }
 
@@ -14,7 +14,7 @@ namespace backend.DTOs {
 
         public static RecordTypeGetDto ToDto(RecordType item) {
             return new RecordTypeGetDto {
-                Id = item.Id,
+                RecordTypeId = item.RecordTypeId,
                 Name = item.Name,
                 Icon = item.Icon,
                 Color = item.Color,

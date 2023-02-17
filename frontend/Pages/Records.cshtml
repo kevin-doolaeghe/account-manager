@@ -1,0 +1,19 @@
+﻿@page
+@model frontend.Pages.RecordsModel
+@{
+    ViewData["Title"] = "Records";
+}
+
+<div>
+    <h3>Record list :</h3>
+    <br />
+    @if (Model.Records.Count == 0) {
+        <p>The list is empty..</p>
+    } else {
+        @foreach (var record in Model.Records) {
+            <ul>
+                <li>@record.Description</li>
+            </ul>
+        }
+    }
+</div>

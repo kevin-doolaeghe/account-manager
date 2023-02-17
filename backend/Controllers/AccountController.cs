@@ -34,6 +34,8 @@ namespace backend.Controllers {
         // PUT: api/accounts/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, AccountPostDto dto) {
+            if (!UserExists(dto.UserId)) return NotFound();
+
             var item = await _context.Accounts.FindAsync(id);
             if (item == null) return NotFound();
 
@@ -42,7 +44,7 @@ namespace backend.Controllers {
 
             try {
                 await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException) when (!Exists(id)) {
+            } catch (DbUpdateConcurrencyException) when (!AccountExists(id)) {
                 return NotFound();
             }
 
@@ -52,6 +54,8 @@ namespace backend.Controllers {
         // POST: api/accounts
         [HttpPost]
         public async Task<ActionResult<AccountGetDto>> Post(AccountPostDto dto) {
+            if (!UserExists(dto.UserId)) return NotFound();
+
             var item = AccountPostDto.ToItem(dto);
 
             _context.Accounts.Add(item);
@@ -59,7 +63,7 @@ namespace backend.Controllers {
 
             return CreatedAtAction(
                 nameof(Get),
-                new { id = item.Id },
+                new { id = item.AccountId },
                 AccountGetDto.ToDto(item)
             );
         }
@@ -76,8 +80,12 @@ namespace backend.Controllers {
             return NoContent();
         }
 
-        private bool Exists(long id) {
-            return _context.Accounts.Any(e => e.Id == id);
+        private bool AccountExists(long id) {
+            return _context.Accounts.Any(e => e.AccountId == id);
+        }
+
+        private bool UserExists(long id) {
+            return _context.Users.Any(e => e.UserId == id);
         }
     }
 }

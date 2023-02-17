@@ -1,19 +1,9 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "User list";
+    ViewData["Title"] = "Home";
 }
 
 <div>
-    <h3>User list :</h3>
-    <br />
-    @if (Model.Users.Count == 0) {
-        <p>The list is empty..</p>
-    } else {
-        @foreach (var user in Model.Users) {
-            <ul>
-                <li>@user.Name</li>
-            </ul>
-        }
-    }
+    <h3>Home</h3>
 </div>

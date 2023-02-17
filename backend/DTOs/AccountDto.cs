@@ -4,15 +4,15 @@ namespace backend.DTOs {
 
     public class AccountGetDto {
 
-        public int Id { get; set; }
+        public long AccountId { get; set; }
 
         public string? Name { get; set; }
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         public static AccountGetDto ToDto(Account item) {
             return new AccountGetDto {
-                Id = item.Id,
+                AccountId = item.AccountId,
                 Name = item.Name,
                 UserId = item.UserId,
             };
@@ -23,7 +23,7 @@ namespace backend.DTOs {
 
         public string? Name { get; set; }
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         public static Account ToItem(AccountPostDto dto) {
             return new Account {

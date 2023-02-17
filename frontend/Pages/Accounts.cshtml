@@ -1,0 +1,19 @@
+﻿@page
+@model frontend.Pages.AccountsModel
+@{
+    ViewData["Title"] = "Accounts";
+}
+
+<div>
+    <h3>Account list :</h3>
+    <br />
+    @if (Model.Accounts.Count == 0) {
+        <p>The list is empty..</p>
+    } else {
+        @foreach (var account in Model.Accounts) {
+            <ul>
+                <li>@account.Name</li>
+            </ul>
+        }
+    }
+</div>

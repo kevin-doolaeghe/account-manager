@@ -2,7 +2,7 @@
 
     public class Record {
 
-        public int Id { get; set; }
+        public long RecordId { get; set; }
 
         public string? Description { get; set; }
 
@@ -12,8 +12,12 @@
 
         public DateTime Date { get; set; }
 
-        public int TypeId { get; set; }
+        public long RecordTypeId { get; set; }
 
-        public int AccountId { get; set; }
+        public RecordType? RecordType { get; set; }
+
+        public long AccountId { get; set; }
+
+        public Account? Account { get; set; }
     }
 }

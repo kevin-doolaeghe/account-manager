@@ -60,7 +60,7 @@ namespace backend.Controllers {
 
             return CreatedAtAction(
                 nameof(Get),
-                new { id = item.Id },
+                new { id = item.UserId },
                 UserGetDto.ToDto(item)
             );
         }
@@ -78,7 +78,7 @@ namespace backend.Controllers {
         }
 
         private bool Exists(long id) {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.UserId == id);
         }
     }
 }

@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 
-namespace frontend.Pages {
+namespace frontend.Pages.Accounts {
 
-    public class AccountsModel : PageModel {
+    public class IndexModel : PageModel {
 
         public async Task OnGetAsync() {
             await FetchAccounts();

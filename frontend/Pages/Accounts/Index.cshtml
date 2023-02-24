@@ -1,19 +1,41 @@
 ﻿@page
 @model frontend.Pages.Accounts.IndexModel
 @{
-    ViewData["Title"] = "Accounts";
+    ViewData["Title"] = "Index";
 }
 
-<div>
-    <h3>Account list :</h3>
-    <br />
-    @if (Model.Accounts.Count == 0) {
-        <p>The list is empty..</p>
-    } else {
-        @foreach (var account in Model.Accounts) {
-            <ul>
-                <li>@account.Name</li>
-            </ul>
-        }
-    }
-</div>
+<h1>Index</h1>
+
+<h4>Accounts</h4>
+<hr />
+<p>
+    <a asp-page="Create">Create new account</a>
+</p>
+@if (Model.Accounts.Count == 0) {
+    <p>The list is empty..</p>
+} else {
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Accounts[0].Name)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Accounts) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a asp-page="Details" asp-route-id="@item.AccountId">Details</a> |
+                        <a asp-page="Edit" asp-route-id="@item.AccountId">Edit</a> |
+                        <a asp-page="Delete" asp-route-id="@item.AccountId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

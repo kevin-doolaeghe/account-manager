@@ -1,0 +1,36 @@
+﻿@page
+@model frontend.Pages.RecordTypes.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Record types</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RecordType.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RecordType.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RecordType.Icon)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RecordType.Icon)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RecordType.Color)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RecordType.Color)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="Edit" asp-route-id="@Model.RecordType?.RecordTypeId">Edit</a> |
+    <a asp-page="Index">Back to List</a>
+</div>

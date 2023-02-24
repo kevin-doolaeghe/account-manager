@@ -1,27 +1,22 @@
 ﻿@page
-@model frontend.Pages.Users.EditModel
+@model frontend.Pages.Accounts.EditModel
 @{
     ViewData["Title"] = "Edit";
 }
 
 <h1>Edit</h1>
 
-<h4>Users</h4>
+<h4>Accounts</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="User.UserId" />
+            <input type="hidden" asp-for="Account.AccountId" />
             <div class="form-group">
-                <label asp-for="User.Name" class="control-label"></label>
-                <input asp-for="User.Name" class="form-control" />
-                <span asp-validation-for="User.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.Email" class="control-label"></label>
-                <input asp-for="User.Email" class="form-control" />
-                <span asp-validation-for="User.Email" class="text-danger"></span>
+                <label asp-for="Account.Name" class="control-label"></label>
+                <input asp-for="Account.Name" class="form-control" />
+                <span asp-validation-for="Account.Name" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">

@@ -26,7 +26,9 @@
             @Html.DisplayNameFor(model => model.RecordType.Color)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RecordType.Color)
+            <span style="color:@Model.RecordType.Color;">
+                @Html.DisplayFor(model => model.RecordType.Color)
+            </span>
         </dd>
     </dl>
 </div>

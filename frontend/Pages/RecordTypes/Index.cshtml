@@ -39,7 +39,9 @@
                         @Html.DisplayFor(modelItem => item.Icon)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Color)
+                        <span style="color:@item.Color;">
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </span>
                     </td>
                     <td>
                         <a asp-page="Details" asp-route-id="@item.RecordTypeId">Details</a> |
